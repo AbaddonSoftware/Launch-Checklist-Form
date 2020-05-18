@@ -7,7 +7,6 @@ function init() {
       response.json().then(function (destinations) {
          let currentDestination = destinations[Math.floor(Math.random() * destinations.length)];
          let missionTarget = document.getElementById("missionTarget");
-         console.log(currentDestination);
          missionTarget.innerHTML =
             `<h2>Mission Destination</h2>
              <ol>
@@ -27,27 +26,18 @@ function init() {
    let cargoMassInput = document.querySelector("input[name=cargoMass]");
    document.addEventListener("submit", function (event) {
       let allInputs = getInputObjects();
-      let missingFieldError = false;
-      let invalidDataError = false;
       for (let input of allInputs) {
          input.element.style = "";
          input.element.placeholder = "";
          if (!input.isSet || !input.isValid) {
             input.element.placeholder = input.error;
             input.element.style = "box-shadow: 0 0 2px 1px red;";
-            missingFieldError = !input.isSet;
-            invalidDataError = !input.isValid;
          }
       }
+      let errorCheck = allInputs.some(input => input.isSet === false);
+      errorCheck = (errorCheck << 1) + allInputs.some(input => input.isValid === false);
 
-      if (missingFieldError) {
-         alert("All fields are required!");
-      }
-      if (invalidDataError) {
-         alert("Please input valid information for each field");
-      }
-
-      else {
+      if (!errorCheck) {
          let fuelStatus = Number(fuelLevelInput.value) > 10000;
          let cargoStatus = Number(cargoMassInput.value) < 10000;
          let readyToLaunch = fuelStatus && cargoStatus;
@@ -64,6 +54,8 @@ function init() {
          launchStatus.style.color = readyToLaunch ? "green" : "red";
          faultyItems.style.visibility = "visible";
       }
+      errorCheck & 2 ? alert("All fields are required!") : null;
+      errorCheck & 1 ? alert("Please input valid information for each field!") : null;
       event.preventDefault();
    });
 
@@ -100,10 +92,10 @@ function init() {
    function isValid(aString, typeComparator) {
       switch (typeComparator) {
          case 'englishName':
-            let validEnglishName = new RegExp('^[a-zA-Z ]+$');
+            let validEnglishName = new RegExp('^[a-zA-Z ]+$|^$');
             return validEnglishName.test(aString);
          case 'positiveNumber':
-            let positiveNumber = new RegExp('^[0-9]+$');
+            let positiveNumber = new RegExp('^[0-9]+$|^$');
             return positiveNumber.test(aString);
          default:
             alert("an error occurred in parsing input");

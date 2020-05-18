@@ -36,7 +36,8 @@ function init() {
       }
       let errorCheck = allInputs.some(input => input.isSet === false);
       errorCheck = (errorCheck << 1) + allInputs.some(input => input.isValid === false);
-
+      errorCheck & 2 ? alert("All fields are required!") : null;
+      errorCheck & 1 ? alert("Please input valid information for each field!") : null;
       if (!errorCheck) {
          let fuelStatus = Number(fuelLevelInput.value) > 10000;
          let cargoStatus = Number(cargoMassInput.value) < 10000;
@@ -49,13 +50,11 @@ function init() {
                  <li id="copilotStatus">Co-pilot ${copilotNameInput.value} is ready for launch.</li>
                  <li id="fuelStatus">Fuel level ${fuelStatus ? "high enough" : "too low"} for launch</li>
                  <li id="cargoStatus">Cargo mass ${cargoStatus ? "low enough" : "too high"} for launch</li>
-            </ol>`
+             </ol>`
          launchStatus.innerHTML = readyToLaunch ? "Shuttle Ready For Launch" : "Shuttle Not Ready for Launch";
          launchStatus.style.color = readyToLaunch ? "green" : "red";
          faultyItems.style.visibility = "visible";
       }
-      errorCheck & 2 ? alert("All fields are required!") : null;
-      errorCheck & 1 ? alert("Please input valid information for each field!") : null;
       event.preventDefault();
    });
 
@@ -95,7 +94,7 @@ function init() {
             let validEnglishName = new RegExp('^[a-zA-Z ]+$|^$');
             return validEnglishName.test(aString);
          case 'positiveNumber':
-            let positiveNumber = new RegExp('^[0-9]+$|^$');
+            let positiveNumber = new RegExp('^[0-9]+$|^$|^[0-9]{1,3}(,[0-9]{3})*$');
             return positiveNumber.test(aString);
          default:
             alert("an error occurred in parsing input");

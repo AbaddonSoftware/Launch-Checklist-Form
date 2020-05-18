@@ -39,8 +39,8 @@ function init() {
       errorCheck & 2 ? alert("All fields are required!") : null;
       errorCheck & 1 ? alert("Please input valid information for each field!") : null;
       if (!errorCheck) {
-         let fuelStatus = Number(fuelLevelInput.value) > 10000;
-         let cargoStatus = Number(cargoMassInput.value) < 10000;
+         let fuelStatus = Number(fuelLevelInput.value.split(",").join("")) > 10000;
+         let cargoStatus = Number(cargoMassInput.value.split(",").join("")) < 10000;
          let readyToLaunch = fuelStatus && cargoStatus;
          let faultyItems = document.getElementById("faultyItems");
          let launchStatus = document.getElementById("launchStatus");

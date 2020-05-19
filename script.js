@@ -55,6 +55,11 @@ function init() {
          launchStatus.style.color = readyToLaunch ? "green" : "red";
          faultyItems.style.visibility = "visible";
       }
+      else {
+         faultyItems.style.visibility = "hidden";
+         launchStatus.innerHTML = "Shuttle Not Ready for Launch";
+         launchStatus.style.color = "red";
+      }
       event.preventDefault();
    });
 

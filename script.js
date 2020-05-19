@@ -57,8 +57,8 @@ function init() {
       }
       else {
          faultyItems.style.visibility = "hidden";
-         launchStatus.innerHTML = "Shuttle Not Ready for Launch";
-         launchStatus.style.color = "red";
+         launchStatus.innerHTML = "Awaiting Proper Input...";
+         launchStatus.style.color = "inherit";
       }
       event.preventDefault();
    });

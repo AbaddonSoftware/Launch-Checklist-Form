@@ -99,7 +99,7 @@ function init() {
             let validEnglishName = new RegExp('^[a-zA-Z ]+$|^$');
             return validEnglishName.test(aString);
          case 'positiveNumber':
-            let positiveNumber = new RegExp('^[0-9]*(.)?([0-9])*$|^$|^[0-9]{1,3}(,[0-9]{3})*(.)?([0-9])*$');
+            let positiveNumber = new RegExp('^[0-9]*(([\.]{1}[0-9]+))?$|^$|^[0-9]{1,3}(,[0-9]{3})*(([\.]{1}[0-9]+))?$');
             return positiveNumber.test(aString);
          default:
             alert("an error occurred in parsing input");

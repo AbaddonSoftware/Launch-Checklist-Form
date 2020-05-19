@@ -34,11 +34,11 @@ function init() {
             input.element.style = "box-shadow: 0 0 2px 1px red;";
          }
       }
-      let errorCheck = allInputs.some(input => input.isSet === false);
-      errorCheck = (errorCheck << 1) + allInputs.some(input => input.isValid === false);
-      errorCheck & 2 ? alert("All fields are required!") : null;
-      errorCheck & 1 ? alert("Please input valid information for each field!") : null;
-      if (!errorCheck) {
+      let fieldsNotSet = allInputs.some(input => input.isSet === false);
+      let improperEntry = allInputs.some(input => input.isValid === false);
+      fieldsNotSet ? alert("All fields are required!") : null;
+      improperEntry ? alert("Please input valid information for each field!") : null;
+      if (!fieldsNotSet && !improperEntry) {
          let faultyItems = document.getElementById("faultyItems");
          let launchStatus = document.getElementById("launchStatus");
          let fuelStatus = Number(fuelLevelInput.value.split(",").join("")) > 10000;
@@ -108,7 +108,7 @@ function init() {
    }
 }
 
-
+// the spaghetti is strong with this one
 
 
 
